@@ -33,6 +33,9 @@ public class VueControleur extends JFrame implements Observer {
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoBloc;
+    private ImageIcon icoGoal;
+    private ImageIcon icoIceBox;
+    private ImageIcon icoWildBox;
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -53,6 +56,7 @@ public class VueControleur extends JFrame implements Observer {
 
     }
 
+
     private void ajouterEcouteurClavier() {
         addKeyListener(new KeyAdapter() { // new KeyAdapter() { ... } est une instance de classe anonyme, il s'agit d'un objet qui correspond au controleur dans MVC
             @Override
@@ -64,7 +68,13 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_DOWN : jeu.deplacerHeros(Direction.bas); break;
                     case KeyEvent.VK_UP : jeu.deplacerHeros(Direction.haut); break;
 
-
+                    /**
+                    Ajouter :
+                    - U for undo. (à voir dans Jeu pour sauvegarder la position actuelle)
+                    - R for reset. (reset toutes les entitées
+                    - P or ESC for pause.
+                    - E for swapping Players (Modern puzzles only)
+                     */
                 }
             }
         });
@@ -72,10 +82,13 @@ public class VueControleur extends JFrame implements Observer {
 
 
     private void chargerLesIcones() {
-        icoHero = chargerIcone("Images/Pacman.png");
+        icoHero = chargerIcone("Images/Player.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
-        icoBloc = chargerIcone("Images/Colonne.png");
+        icoBloc = chargerIcone("Images/Box.png");
+        icoGoal = chargerIcone("Images/Goal.png");
+        icoIceBox = chargerIcone("Images/IceBox.png");
+        icoWildBox = chargerIcone("Images/WildBox.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -132,6 +145,7 @@ public class VueControleur extends JFrame implements Observer {
                             tabJLabel[x][y].setIcon(icoHero);
                         } else if (c.getEntite() instanceof Bloc) {
                             tabJLabel[x][y].setIcon(icoBloc);
+                            tabJLabel[5][8].setIcon(icoGoal);
                         }
                     } else {
                         if (jeu.getGrille()[x][y] instanceof Mur) {

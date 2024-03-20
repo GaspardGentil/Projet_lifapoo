@@ -45,6 +45,8 @@ public class Jeu extends Observable {
         notifyObservers();
     }
 
+
+
     
     private void initialisationNiveau() {
 
