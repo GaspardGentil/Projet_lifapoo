@@ -14,4 +14,10 @@ update images
 --> Class Goal : interaction entre Hero et Bloc
 
 ## seance-2
-Implementation de la classe Goal qui 
+Implementation de la classe Goal qui fait la fin du niveau
+Implementation de la classe Niveau qui stock les infos d'un niveau
+
+- A implémenter :
+--> Class Niveau : gestion des niveaux
+--> Class Jeu : gestion de fin de partie
+--> Class VueController : gestion des touches d'action
