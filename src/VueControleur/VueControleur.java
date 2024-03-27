@@ -145,7 +145,6 @@ public class VueControleur extends JFrame implements Observer {
                             tabJLabel[x][y].setIcon(icoHero);
                         } else if (c.getEntite() instanceof Bloc) {
                             tabJLabel[x][y].setIcon(icoBloc);
-                            tabJLabel[5][8].setIcon(icoGoal);
                         }
                     } else {
                         if (jeu.getGrille()[x][y] instanceof Mur) {
@@ -153,6 +152,8 @@ public class VueControleur extends JFrame implements Observer {
                         } else if (jeu.getGrille()[x][y] instanceof Vide) {
 
                             tabJLabel[x][y].setIcon(icoVide);
+                        } else if (jeu.getGrille()[x][y] instanceof Goal) {
+                            tabJLabel[x][y].setIcon(icoGoal);
                         }
                     }
 

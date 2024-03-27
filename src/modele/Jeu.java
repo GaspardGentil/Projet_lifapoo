@@ -24,7 +24,6 @@ public class Jeu extends Observable {
     private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
 
 
-
     public Jeu() {
         initialisationNiveau();
     }
@@ -68,12 +67,14 @@ public class Jeu extends Observable {
         for (int x = 1; x < 19; x++) {
             for (int y = 1; y < 9; y++) {
                 addCase(new Vide(this), x, y);
+
             }
 
         }
 
         heros = new Heros(this, grilleEntites[4][4]);
         Bloc b = new Bloc(this, grilleEntites[6][6]);
+        addCase(new Goal(this), 9, 8);
     }
 
     private void addCase(Case e, int x, int y) {
@@ -101,6 +102,17 @@ public class Jeu extends Observable {
 
             // si la case est libérée
             if (caseALaPosition(pCible).peutEtreParcouru()) {
+                if (caseALaPosition(pCible) instanceof Vide) {  // Si la case cible est Vide
+                    e.getCase().quitterLaCase(); // L'entité quitte la case actuelle
+                    caseALaPosition(pCible).entrerSurLaCase(e); // L'entité va sur la case suivante (Cible)
+                }
+
+                if (caseALaPosition(pCible) instanceof Goal) {  // Si la case cible est Goal
+                    e.getCase().quitterLaCase();
+                    caseALaPosition(pCible).entrerSurLaCase(e);
+                    // Appel de la methode "finPartie"
+                }
+
                 e.getCase().quitterLaCase();
                 caseALaPosition(pCible).entrerSurLaCase(e);
 
