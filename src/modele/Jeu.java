@@ -18,14 +18,15 @@ public class Jeu extends Observable {
 
 
 
+
     private Heros heros;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
     private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
 
 
-    public Jeu() {
-        initialisationNiveau();
+    public Jeu(Niveau n) {
+        initialisationNiveau(n);
     }
 
 
@@ -47,34 +48,38 @@ public class Jeu extends Observable {
 
 
     
-    private void initialisationNiveau() {
-
-
+    private void initialisationNiveau(Niveau n) {
 
 
         // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
+        for (int x = 0; x < n.getSIZE_X(); x++) {
             addCase(new Mur(this), x, 0);
             addCase(new Mur(this), x, 9);
         }
 
         // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
+        for (int y = 1; y < n.getSIZE_Y(); y++) {
             addCase(new Mur(this), 0, y);
             addCase(new Mur(this), 19, y);
         }
 
-        for (int x = 1; x < 19; x++) {
-            for (int y = 1; y < 9; y++) {
+        for (int x = 1; x < n.getSIZE_X()-1; x++) {
+            for (int y = 1; y < n.getSIZE_Y()-1; y++) {
                 addCase(new Vide(this), x, y);
 
             }
 
         }
 
-        heros = new Heros(this, grilleEntites[4][4]);
-        Bloc b = new Bloc(this, grilleEntites[6][6]);
-        addCase(new Goal(this), 9, 8);
+        for (Point p : n.getBlocsPosition()) {
+            Bloc b = new Bloc(this, grilleEntites[p.x][p.y]);
+        }
+
+        for (Point p : n.getGoalPosition()) {
+            addCase(new Goal(this), p.x, p.y);
+        }
+
+        heros = new Heros(this, grilleEntites[n.getHerosPosition().x][n.getHerosPosition().y]);
     }
 
     private void addCase(Case e, int x, int y) {
