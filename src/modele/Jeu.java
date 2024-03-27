@@ -16,7 +16,7 @@ public class Jeu extends Observable {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
 
-
+    public Niveau n;
 
 
     private Heros heros;
@@ -26,7 +26,8 @@ public class Jeu extends Observable {
 
 
     public Jeu(Niveau n) {
-        initialisationNiveau(n);
+        this.n = n;
+        initialisationNiveau();
     }
 
 
@@ -48,7 +49,7 @@ public class Jeu extends Observable {
 
 
     
-    private void initialisationNiveau(Niveau n) {
+    private void initialisationNiveau() {
 
 
         // murs extérieurs horizontaux
@@ -80,6 +81,12 @@ public class Jeu extends Observable {
         }
 
         heros = new Heros(this, grilleEntites[n.getHerosPosition().x][n.getHerosPosition().y]);
+    }
+
+    public void resetNiveau() {
+        initialisationNiveau();
+        setChanged();
+        notifyObservers();
     }
 
     private void addCase(Case e, int x, int y) {

@@ -67,6 +67,9 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT : jeu.deplacerHeros(Direction.droite); break;
                     case KeyEvent.VK_DOWN : jeu.deplacerHeros(Direction.bas); break;
                     case KeyEvent.VK_UP : jeu.deplacerHeros(Direction.haut); break;
+                    case KeyEvent.VK_R : jeu.resetNiveau(); break;
+                    case KeyEvent.VK_U : /*jeu.undoMove()*/; break;
+                    case KeyEvent.VK_ESCAPE : System.exit(0); break;
 
                     /**
                     Ajouter :
