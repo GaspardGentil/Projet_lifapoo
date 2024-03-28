@@ -20,6 +20,7 @@ public class Jeu extends Observable {
 
 
     private Heros heros;
+    private Bloc blocs;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
     private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
@@ -48,7 +49,7 @@ public class Jeu extends Observable {
 
 
 
-    
+
     private void initialisationNiveau() {
 
 
@@ -72,6 +73,19 @@ public class Jeu extends Observable {
 
         }
 
+        // Murs intérieurs horizontaux
+        for (int x = 4; x <= 16; x++) {
+            addCase(new Mur(this), x, 4);
+        }
+
+        // Murs extérieurs verticaux
+        for (int y = 3; y <= 5; y++) {
+            addCase(new Mur(this), 1, y);
+            addCase(new Mur(this), 19, y);
+        }
+
+
+        /*
         for (Point p : n.getBlocsPosition()) {
             Bloc b = new Bloc(this, grilleEntites[p.x][p.y]);
         }
@@ -81,6 +95,17 @@ public class Jeu extends Observable {
         }
 
         heros = new Heros(this, grilleEntites[n.getHerosPosition().x][n.getHerosPosition().y]);
+        */
+
+        // Position du bloc (à adapter selon votre choix)
+        blocs = new Bloc(this, grilleEntites[7][3]);
+
+        // Position de l'objectif (à adapter selon votre choix)
+        addCase(new Goal(this), 9, 5);
+
+        // Position du héros (à adapter selon votre choix)
+        heros = new Heros(this, grilleEntites[1][1]);
+
     }
 
     public void resetNiveau() {
@@ -106,8 +131,10 @@ public class Jeu extends Observable {
             for (int y = 0; y < SIZE_Y; y++) {
                 //addCase(new Vide(this), x, y);
                 Case c = grilleEntites[x][y];
+                // On vérifie si la case est un Goal
                 if (c instanceof Goal) {
                     Entite e = c.getEntite();
+                    // Si la case où se trouve Goal ne contient pas Bloc alors ce n'est pas fini
                     if (!(e instanceof Bloc)) {
                         return false;
                     }
