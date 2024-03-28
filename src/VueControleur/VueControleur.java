@@ -149,12 +149,14 @@ public class VueControleur extends JFrame implements Observer {
                         if (c.getEntite() instanceof Heros) {
                             tabJLabel[x][y].setIcon(icoHero);
                         } else if (c.getEntite() instanceof Bloc) {
+                            tabJLabel[x][y].setIcon(icoBloc);
                             // On vérifie si la case contient un Bloc ou BlocGoal
-                            if (c instanceof Goal) {;
+                            if (jeu.finPartie()) {
                                 tabJLabel[x][y].setIcon(icoBlocGoal);
                             } else {
                                 tabJLabel[x][y].setIcon(icoBloc);
                             }
+
                         }
                     } else {
                         if (jeu.getGrille()[x][y] instanceof Mur) {
@@ -173,6 +175,7 @@ public class VueControleur extends JFrame implements Observer {
 
             }
         }
+
     }
 
     @Override

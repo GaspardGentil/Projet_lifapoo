@@ -100,13 +100,21 @@ public class Jeu extends Observable {
         map.remove(e, new Point(x, y));
     }
 
-    public void finPartie() {
+    public boolean finPartie() {
 
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 10; y++) {
-                addCase(new Vide(this), x, y);
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 0; y < SIZE_Y; y++) {
+                //addCase(new Vide(this), x, y);
+                Case c = grilleEntites[x][y];
+                if (c instanceof Goal) {
+                    Entite e = c.getEntite();
+                    if (!(e instanceof Bloc)) {
+                        return false;
+                    }
+                }
             }
         }
+        return true;
         //heros = new Heros(this, grilleEntites[1][1]);
     }
     
@@ -138,11 +146,11 @@ public class Jeu extends Observable {
                 if (caseALaPosition(pCible) instanceof Goal) {  // Si la case cible est Goal
                     e.getCase().quitterLaCase();
                     caseALaPosition(pCible).entrerSurLaCase(e);
-                    System.out.println("Goal atteint !");
                     // Bloc arrive sur le goal : Appel d'une méthode pour clear la grille
                     //removeCase(new Goal(this), pCible.x, pCible.y);
+                    System.out.println("Goal atteint !");
                     finPartie();
-                    e.setCase(grilleEntites[1][1]);
+                    //e.setCase(grilleEntites[1][1]);
                 }
 
                 e.getCase().quitterLaCase();
