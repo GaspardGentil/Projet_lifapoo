@@ -138,6 +138,7 @@ public class Jeu extends Observable {
                 if (caseALaPosition(pCible) instanceof Goal) {  // Si la case cible est Goal
                     e.getCase().quitterLaCase();
                     caseALaPosition(pCible).entrerSurLaCase(e);
+                    System.out.println("Goal atteint !");
                     // Bloc arrive sur le goal : Appel d'une méthode pour clear la grille
                     //removeCase(new Goal(this), pCible.x, pCible.y);
                     finPartie();

@@ -33,7 +33,7 @@ public class VueControleur extends JFrame implements Observer {
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoBloc;
-    //private Image Icon icoBlocGoal;
+    private ImageIcon icoBlocGoal;
     private ImageIcon icoGoal;
     private ImageIcon icoIceBox;
     private ImageIcon icoWildBox;
@@ -90,7 +90,7 @@ public class VueControleur extends JFrame implements Observer {
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoBloc = chargerIcone("Images/Box.png");
-        //icoBlocGoal = chargerIcone("Images/BoxGoal.png");
+        icoBlocGoal = chargerIcone("Images/BoxGoal.png");
         icoGoal = chargerIcone("Images/Goal.png");
         icoIceBox = chargerIcone("Images/IceBox.png");
         icoWildBox = chargerIcone("Images/WildBox.png");
@@ -149,7 +149,12 @@ public class VueControleur extends JFrame implements Observer {
                         if (c.getEntite() instanceof Heros) {
                             tabJLabel[x][y].setIcon(icoHero);
                         } else if (c.getEntite() instanceof Bloc) {
-                            tabJLabel[x][y].setIcon(icoBloc);
+                            // On vérifie si la case contient un Bloc ou BlocGoal
+                            if (c instanceof Goal) {;
+                                tabJLabel[x][y].setIcon(icoBlocGoal);
+                            } else {
+                                tabJLabel[x][y].setIcon(icoBloc);
+                            }
                         }
                     } else {
                         if (jeu.getGrille()[x][y] instanceof Mur) {
