@@ -20,7 +20,6 @@ public class Jeu extends Observable {
 
 
     private Heros heros;
-    private Bloc blocs;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
     private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
@@ -98,8 +97,9 @@ public class Jeu extends Observable {
         */
 
         // Position du bloc (à adapter selon votre choix)
-        blocs = new Bloc(this, grilleEntites[7][3]);
 
+        Bloc b1 = new Bloc(this, grilleEntites[6][5]);
+        Bloc b2 = new Bloc(this, grilleEntites[12][5]);
         // Position de l'objectif (à adapter selon votre choix)
         addCase(new Goal(this), 9, 5);
 
