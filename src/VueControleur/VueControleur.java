@@ -151,7 +151,10 @@ public class VueControleur extends JFrame implements Observer {
                         } else if (c.getEntite() instanceof Bloc) {
                             tabJLabel[x][y].setIcon(icoBloc);
                             // On vérifie si la case contient un Bloc ou BlocGoal
+                            Bloc b = (Bloc) e;
                             if (jeu.finPartie()) {
+                                tabJLabel[x][y].setIcon(icoBlocGoal);
+                            } else if (b.estSurGoal()) {
                                 tabJLabel[x][y].setIcon(icoBlocGoal);
                             } else {
                                 tabJLabel[x][y].setIcon(icoBloc);

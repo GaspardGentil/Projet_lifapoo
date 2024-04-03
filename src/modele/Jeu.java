@@ -142,6 +142,20 @@ public class Jeu extends Observable {
                 }
 
                 if (caseALaPosition(pCible) instanceof Goal) {  // Si la case cible est Goal
+                    if (e instanceof Bloc) {
+                        System.out.println("Un Bloc a atteint Goal !");
+                        ((Bloc) e).setSurGoal(true);
+                        // Incrémente compteur Goal
+                        e.getCase().quitterLaCase(); //quitte la case actuelle
+                        caseALaPosition(pCible).entrerSurLaCase(e);
+                    } else {
+                        System.out.println("Bloc n'est plus sur Goal !");
+                        //Bloc b = (Bloc) e;
+                        //System.out.println("Bloc n'est plus sur Goal !");
+
+                        //((Bloc) e).setSurGoal(false);
+                        // Décrémente compteur Goal
+                    }
                     e.getCase().quitterLaCase();
                     caseALaPosition(pCible).entrerSurLaCase(e);
                     // Bloc arrive sur le goal : Appel d'une méthode pour clear la grille
