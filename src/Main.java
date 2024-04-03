@@ -1,9 +1,10 @@
 
 import VueControleur.VueControleur;
 import modele.Jeu;
-import modele.Niveau;
+import modele.Niveaux;
 
-import java.awt.*;
+import static util.Tool.fileToTab;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,11 +15,8 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        Point heros = new Point(2,2 );
-        Point[] blocs = new Point[]{new Point(3, 2)};
-        Point[] goals = new Point[]{new Point(5, 8)};
-        Niveau n = new Niveau(20, 10,heros, blocs, goals);
-        Jeu jeu = new Jeu(n);
+        Niveaux n = new Niveaux();
+        Jeu jeu = new Jeu(n.getNiveau());
 
         VueControleur vc = new VueControleur(jeu);
         vc.setVisible(true);

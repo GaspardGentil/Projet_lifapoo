@@ -7,14 +7,15 @@ package modele;
 
 
 import java.awt.Point;
+import java.awt.desktop.SystemEventListener;
 import java.util.HashMap;
 import java.util.Observable;
 
 
 public class Jeu extends Observable {
 
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
+    //public static final int SIZE_X = 20;
+    //public static final int SIZE_Y = 10;
 
     public Niveau n;
 
@@ -22,7 +23,7 @@ public class Jeu extends Observable {
     private Heros heros;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
-    private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
+    private Case[][] grilleEntites = new Case[n.getSIZE_X()][n.getSIZE_Y()]; // permet de récupérer une case à partir de ses coordonnées
 
 
     public Jeu(Niveau n) {
@@ -31,7 +32,6 @@ public class Jeu extends Observable {
     }
 
 
-    
     public Case[][] getGrille() {
         return grilleEntites;
     }
@@ -42,6 +42,8 @@ public class Jeu extends Observable {
 
     public void deplacerHeros(Direction d) {
         heros.avancerDirectionChoisie(d);
+        n.incrementCurrentScore();
+        System.out.println("Score : " + n.getCurrentScore());
         setChanged();
         notifyObservers();
     }
@@ -51,7 +53,7 @@ public class Jeu extends Observable {
     
     private void initialisationNiveau() {
 
-
+        /*
         // murs extérieurs horizontaux
         for (int x = 0; x < n.getSIZE_X(); x++) {
             addCase(new Mur(this), x, 0);
@@ -63,13 +65,17 @@ public class Jeu extends Observable {
             addCase(new Mur(this), 0, y);
             addCase(new Mur(this), 19, y);
         }
+        */
 
         for (int x = 1; x < n.getSIZE_X()-1; x++) {
             for (int y = 1; y < n.getSIZE_Y()-1; y++) {
                 addCase(new Vide(this), x, y);
-
             }
 
+        }
+
+        for (Point p : n.getWallsPosition()) {
+            addCase(new Mur(this), p.x, p.y);
         }
 
         for (Point p : n.getBlocsPosition()) {
@@ -85,6 +91,7 @@ public class Jeu extends Observable {
 
     public void resetNiveau() {
         initialisationNiveau();
+        n.resetCurrentScore();
         setChanged();
         notifyObservers();
     }
@@ -178,7 +185,7 @@ public class Jeu extends Observable {
     /** Indique si p est contenu dans la grille
      */
     private boolean contenuDansGrille(Point p) {
-        return p.x >= 0 && p.x < SIZE_X && p.y >= 0 && p.y < SIZE_Y;
+        return p.x >= 0 && p.x < n.getSIZE_X() && p.y >= 0 && p.y < n.getSIZE_Y();
     }
     
     private Case caseALaPosition(Point p) {
