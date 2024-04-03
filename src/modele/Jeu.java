@@ -41,10 +41,10 @@ public class Jeu extends Observable {
 
     public void deplacerHeros(Direction d) {
         heros.avancerDirectionChoisie(d);
+        n.incrementCurrentScore();
         setChanged();
         notifyObservers();
     }
-
 
 
 
@@ -64,7 +64,7 @@ public class Jeu extends Observable {
 
         // On ajoute les blocs
         for (Point p : n.getBlocsPosition()) {
-            Bloc b = new Bloc(this, grilleEntites[p.x][p.y]);
+            new Bloc(this, grilleEntites[p.x][p.y]);
         }
 
         // On ajoute les goals
@@ -79,6 +79,7 @@ public class Jeu extends Observable {
 
     public void resetNiveau() {
         initialisationNiveau();
+        n.resetCurrentScore();
         setChanged();
         notifyObservers();
     }
@@ -110,6 +111,7 @@ public class Jeu extends Observable {
                 }
             }
         }
+        n.setBestScore();
         return true;
         //heros = new Heros(this, grilleEntites[1][1]);
     }

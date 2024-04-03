@@ -29,17 +29,12 @@ public class Tool {
     }
 
     private static int convertToInt(String str) {
-        switch (str) {
-            case "h":
-                return 1;
-            case "b":
-                return 2;
-            case "g":
-                return 3;
-            case "w":
-                return 4;
-            default:
-                return 0; // Valeur par défaut pour les autres cas
-        }
+        return switch (str) {
+            case "h" -> 1;
+            case "b" -> 2;
+            case "g" -> 3;
+            case "w" -> 4;
+            default -> 0; // Valeur par défaut pour les autres cas
+        };
     }
 }

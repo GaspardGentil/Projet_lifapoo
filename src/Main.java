@@ -4,8 +4,6 @@ import modele.Jeu;
 import modele.Niveau;
 import modele.Niveaux;
 
-import static util.Tool.fileToTab;
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,16 +15,7 @@ import static util.Tool.fileToTab;
 public class Main {
     public static void main(String[] args) {
         Niveaux niveaux = new Niveaux();
-        Niveau n = niveaux.getNiveau();
-        System.out.println(n.getSIZE_X());
-        System.out.println(n.getSIZE_Y());
-        System.out.println(n.getHerosPosition());
-        System.out.println(n.getBlocsPosition());
-        System.out.println(n.getGoalPosition());
-        System.out.println(n.getWallsPosition());
-        System.out.println(n.getBestScore());
-        System.out.println(n.getBestScore());
-        Jeu jeu = new Jeu(n);
+        Jeu jeu = new Jeu(niveaux.getNiveau());
 
         VueControleur vc = new VueControleur(jeu);
         vc.setVisible(true);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Niveaux {
     //attributes
-    private ArrayList niveaux;
+    private ArrayList<Niveau> niveaux;
     private int currentLevel;
 
     //methods
