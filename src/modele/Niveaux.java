@@ -1,6 +1,5 @@
 package modele;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Niveaux {
@@ -10,10 +9,11 @@ public class Niveaux {
 
     //methods
     public Niveaux() {
-        niveaux = new ArrayList();
+        niveaux = new ArrayList<Niveau>();
 
         //Niveau 1
         Niveau n = new Niveau("Levels/level1.txt");
+        addNiveau(n);
         currentLevel = 0;
     }
 

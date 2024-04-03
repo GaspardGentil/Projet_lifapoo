@@ -18,7 +18,6 @@ public class Jeu extends Observable {
 
     public Niveau n;
 
-
     private Heros heros;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
@@ -51,60 +50,30 @@ public class Jeu extends Observable {
 
     private void initialisationNiveau() {
 
-
-        // murs extérieurs horizontaux
+        // On vide la grille
         for (int x = 0; x < n.getSIZE_X(); x++) {
-            addCase(new Mur(this), x, 0);
-            addCase(new Mur(this), x, 9);
-        }
-
-        // murs extérieurs verticaux
-        for (int y = 1; y < n.getSIZE_Y(); y++) {
-            addCase(new Mur(this), 0, y);
-            addCase(new Mur(this), 19, y);
-        }
-
-        for (int x = 1; x < n.getSIZE_X()-1; x++) {
-            for (int y = 1; y < n.getSIZE_Y()-1; y++) {
+            for (int y = 0; y < n.getSIZE_Y(); y++) {
                 addCase(new Vide(this), x, y);
-
             }
-
         }
 
-        // Murs intérieurs horizontaux
-        for (int x = 4; x <= 16; x++) {
-            addCase(new Mur(this), x, 4);
+        // On ajoute les murs
+        for (Point p : n.getWallsPosition()) {
+            addCase(new Mur(this), p.x, p.y);
         }
 
-        // Murs extérieurs verticaux
-        for (int y = 3; y <= 5; y++) {
-            addCase(new Mur(this), 1, y);
-            addCase(new Mur(this), 19, y);
-        }
-
-
-        /*
+        // On ajoute les blocs
         for (Point p : n.getBlocsPosition()) {
             Bloc b = new Bloc(this, grilleEntites[p.x][p.y]);
         }
 
+        // On ajoute les goals
         for (Point p : n.getGoalPosition()) {
             addCase(new Goal(this), p.x, p.y);
         }
 
+        // On ajoute le héros
         heros = new Heros(this, grilleEntites[n.getHerosPosition().x][n.getHerosPosition().y]);
-        */
-
-        // Position du bloc (à adapter selon votre choix)
-
-        Bloc b1 = new Bloc(this, grilleEntites[6][5]);
-        Bloc b2 = new Bloc(this, grilleEntites[12][5]);
-        // Position de l'objectif (à adapter selon votre choix)
-        addCase(new Goal(this), 9, 5);
-
-        // Position du héros (à adapter selon votre choix)
-        heros = new Heros(this, grilleEntites[1][1]);
 
     }
 

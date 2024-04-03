@@ -1,6 +1,7 @@
 
 import VueControleur.VueControleur;
 import modele.Jeu;
+import modele.Niveau;
 import modele.Niveaux;
 
 import static util.Tool.fileToTab;
@@ -15,11 +16,19 @@ import static util.Tool.fileToTab;
 
 public class Main {
     public static void main(String[] args) {
-        Niveaux n = new Niveaux();
-        Jeu jeu = new Jeu(n.getNiveau());
+        Niveaux niveaux = new Niveaux();
+        Niveau n = niveaux.getNiveau();
+        System.out.println(n.getSIZE_X());
+        System.out.println(n.getSIZE_Y());
+        System.out.println(n.getHerosPosition());
+        System.out.println(n.getBlocsPosition());
+        System.out.println(n.getGoalPosition());
+        System.out.println(n.getWallsPosition());
+        System.out.println(n.getBestScore());
+        System.out.println(n.getBestScore());
+        Jeu jeu = new Jeu(n);
 
         VueControleur vc = new VueControleur(jeu);
         vc.setVisible(true);
-
     }
 }

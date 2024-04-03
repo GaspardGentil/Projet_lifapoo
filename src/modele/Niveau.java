@@ -36,24 +36,26 @@ public class Niveau {
 
     }
 
+
     public void InitWithTab(int[][] tab){
         SIZE_X = tab.length;
         SIZE_Y = tab[0].length;
+        blocsPosition = new ArrayList<>();
+        goalPosition = new ArrayList<>();
+        wallsPosition = new ArrayList<>();
+
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
                 if (tab[i][j] == 1) {
                     herosPosition = new Point(i, j);
                 }
                 if (tab[i][j] == 2) {
-                    blocsPosition = new ArrayList<>();
                     blocsPosition.add(new Point(i, j));
                 }
                 if (tab[i][j] == 3) {
-                    goalPosition = new ArrayList<>();
                     goalPosition.add(new Point(i, j));
                 }
                 if (tab[i][j] == 4) {
-                    wallsPosition = new ArrayList<>();
                     wallsPosition.add(new Point(i, j));
                 }
             }
