@@ -7,15 +7,14 @@ package modele;
 
 
 import java.awt.Point;
-import java.awt.desktop.SystemEventListener;
 import java.util.HashMap;
 import java.util.Observable;
 
 
 public class Jeu extends Observable {
 
-    //public static final int SIZE_X = 20;
-    //public static final int SIZE_Y = 10;
+    public static final int SIZE_X = 20;
+    public static final int SIZE_Y = 10;
 
     public Niveau n;
 
@@ -23,7 +22,7 @@ public class Jeu extends Observable {
     private Heros heros;
 
     private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une case à partir de sa référence
-    private Case[][] grilleEntites = new Case[n.getSIZE_X()][n.getSIZE_Y()]; // permet de récupérer une case à partir de ses coordonnées
+    private Case[][] grilleEntites = new Case[SIZE_X][SIZE_Y]; // permet de récupérer une case à partir de ses coordonnées
 
 
     public Jeu(Niveau n) {
@@ -32,6 +31,7 @@ public class Jeu extends Observable {
     }
 
 
+    
     public Case[][] getGrille() {
         return grilleEntites;
     }
@@ -42,18 +42,16 @@ public class Jeu extends Observable {
 
     public void deplacerHeros(Direction d) {
         heros.avancerDirectionChoisie(d);
-        n.incrementCurrentScore();
-        System.out.println("Score : " + n.getCurrentScore());
         setChanged();
         notifyObservers();
     }
 
 
 
-    
+
     private void initialisationNiveau() {
 
-        /*
+
         // murs extérieurs horizontaux
         for (int x = 0; x < n.getSIZE_X(); x++) {
             addCase(new Mur(this), x, 0);
@@ -65,19 +63,28 @@ public class Jeu extends Observable {
             addCase(new Mur(this), 0, y);
             addCase(new Mur(this), 19, y);
         }
-        */
 
         for (int x = 1; x < n.getSIZE_X()-1; x++) {
             for (int y = 1; y < n.getSIZE_Y()-1; y++) {
                 addCase(new Vide(this), x, y);
+
             }
 
         }
 
-        for (Point p : n.getWallsPosition()) {
-            addCase(new Mur(this), p.x, p.y);
+        // Murs intérieurs horizontaux
+        for (int x = 4; x <= 16; x++) {
+            addCase(new Mur(this), x, 4);
         }
 
+        // Murs extérieurs verticaux
+        for (int y = 3; y <= 5; y++) {
+            addCase(new Mur(this), 1, y);
+            addCase(new Mur(this), 19, y);
+        }
+
+
+        /*
         for (Point p : n.getBlocsPosition()) {
             Bloc b = new Bloc(this, grilleEntites[p.x][p.y]);
         }
@@ -87,11 +94,22 @@ public class Jeu extends Observable {
         }
 
         heros = new Heros(this, grilleEntites[n.getHerosPosition().x][n.getHerosPosition().y]);
+        */
+
+        // Position du bloc (à adapter selon votre choix)
+
+        Bloc b1 = new Bloc(this, grilleEntites[6][5]);
+        Bloc b2 = new Bloc(this, grilleEntites[12][5]);
+        // Position de l'objectif (à adapter selon votre choix)
+        addCase(new Goal(this), 9, 5);
+
+        // Position du héros (à adapter selon votre choix)
+        heros = new Heros(this, grilleEntites[1][1]);
+
     }
 
     public void resetNiveau() {
         initialisationNiveau();
-        n.resetCurrentScore();
         setChanged();
         notifyObservers();
     }
@@ -107,13 +125,23 @@ public class Jeu extends Observable {
         map.remove(e, new Point(x, y));
     }
 
-    public void finPartie() {
+    public boolean finPartie() {
 
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 10; y++) {
-                addCase(new Vide(this), x, y);
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 0; y < SIZE_Y; y++) {
+                //addCase(new Vide(this), x, y);
+                Case c = grilleEntites[x][y];
+                // On vérifie si la case est un Goal
+                if (c instanceof Goal) {
+                    Entite e = c.getEntite();
+                    // Si la case où se trouve Goal ne contient pas Bloc alors ce n'est pas fini
+                    if (!(e instanceof Bloc)) {
+                        return false;
+                    }
+                }
             }
         }
+        return true;
         //heros = new Heros(this, grilleEntites[1][1]);
     }
     
@@ -147,8 +175,9 @@ public class Jeu extends Observable {
                     caseALaPosition(pCible).entrerSurLaCase(e);
                     // Bloc arrive sur le goal : Appel d'une méthode pour clear la grille
                     //removeCase(new Goal(this), pCible.x, pCible.y);
+                    System.out.println("Goal atteint !");
                     finPartie();
-                    e.setCase(grilleEntites[1][1]);
+                    //e.setCase(grilleEntites[1][1]);
                 }
 
                 e.getCase().quitterLaCase();
@@ -185,7 +214,7 @@ public class Jeu extends Observable {
     /** Indique si p est contenu dans la grille
      */
     private boolean contenuDansGrille(Point p) {
-        return p.x >= 0 && p.x < n.getSIZE_X() && p.y >= 0 && p.y < n.getSIZE_Y();
+        return p.x >= 0 && p.x < SIZE_X && p.y >= 0 && p.y < SIZE_Y;
     }
     
     private Case caseALaPosition(Point p) {
