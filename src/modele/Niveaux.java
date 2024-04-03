@@ -9,7 +9,7 @@ public class Niveaux {
 
     //methods
     public Niveaux() {
-        niveaux = new ArrayList<Niveau>();
+        niveaux = new ArrayList<>();
 
         //Niveau 1
         Niveau n = new Niveau("Levels/level1.txt");
@@ -22,7 +22,7 @@ public class Niveaux {
     }
 
     public Niveau getNiveau() {
-        return (Niveau) niveaux.get(currentLevel);
+        return niveaux.get(currentLevel);
     }
 
     public void nextLevel() {

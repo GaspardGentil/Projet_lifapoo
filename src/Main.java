@@ -1,7 +1,6 @@
 
 import VueControleur.VueControleur;
 import modele.Jeu;
-import modele.Niveau;
 import modele.Niveaux;
 
 

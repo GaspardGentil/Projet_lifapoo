@@ -72,7 +72,7 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_U : /*jeu.undoMove()*/; break;
                     case KeyEvent.VK_ESCAPE : System.exit(0); break;
 
-                    /**
+                    /*
                     Ajouter :
                     - U for undo. (à voir dans Jeu pour sauvegarder la position actuelle)
                     - R for reset. (reset toutes les entitées
