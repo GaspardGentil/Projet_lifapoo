@@ -40,8 +40,10 @@ public class Jeu extends Observable {
     }
 
     public void deplacerHeros(Direction d) {
-        heros.avancerDirectionChoisie(d);
         n.incrementCurrentScore();
+        if(!heros.avancerDirectionChoisie(d)){
+            n.decrementCurrentScore();
+        }
         setChanged();
         notifyObservers();
     }

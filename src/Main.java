@@ -14,8 +14,6 @@ import modele.Niveaux;
 public class Main {
     public static void main(String[] args) {
         Niveaux niveaux = new Niveaux();
-        niveaux.nextLevel();
-        niveaux.nextLevel();
         Jeu jeu = new Jeu(niveaux.getNiveau());
 
         VueControleur vc = new VueControleur(jeu);

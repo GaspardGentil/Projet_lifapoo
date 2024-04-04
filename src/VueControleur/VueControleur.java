@@ -24,6 +24,7 @@ import modele.*;
  */
 public class VueControleur extends JFrame implements Observer {
     private Jeu jeu; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    private Niveaux niveaux = new Niveaux();
 
     private int sizeX; // taille de la grille affichée
     private int sizeY;
@@ -46,6 +47,7 @@ public class VueControleur extends JFrame implements Observer {
         sizeX = _jeu.n.getSIZE_X();
         sizeY = _jeu.n.getSIZE_Y();
         jeu = _jeu;
+        jeu.n = niveaux.getNiveau();
 
         chargerLesIcones();
         placerLesComposantsGraphiques();
@@ -70,13 +72,21 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_UP : jeu.deplacerHeros(Direction.haut); break;
                     case KeyEvent.VK_R : jeu.resetNiveau(); break;
                     case KeyEvent.VK_U : /*jeu.undoMove()*/; break;
+                    case KeyEvent.VK_N : niveaux.nextLevel();
+                                        jeu.n = niveaux.getNiveau();
+                                        jeu.resetNiveau();
+                        break;
+                    case KeyEvent.VK_B : niveaux.previousLevel();
+                                        jeu.n = niveaux.getNiveau();
+                                        jeu.resetNiveau();
+                        break;
                     case KeyEvent.VK_ESCAPE : System.exit(0); break;
 
                     /*
                     Ajouter :
                     - U for undo. (à voir dans Jeu pour sauvegarder la position actuelle)
-                    - R for reset. (reset toutes les entitées
-                    - P or ESC for pause.
+                    - R for reset. (reset toutes les entitées)
+                    - Esc to close.
                     - E for swapping Players (Modern puzzles only)
                      */
                 }
@@ -135,7 +145,6 @@ public class VueControleur extends JFrame implements Observer {
     private void mettreAJourAffichage() {
 
 
-
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
 
@@ -172,11 +181,15 @@ public class VueControleur extends JFrame implements Observer {
                         }
                     }
 
-
-
                 }
 
             }
+        }
+        if(jeu.finPartie()){
+            JOptionPane.showMessageDialog(this, "Niveau terminé !  score : " + jeu.n.getCurrentScore() + " / " + jeu.n.getBestScore());
+            niveaux.nextLevel();
+            jeu.n = niveaux.getNiveau();
+            jeu.resetNiveau();
         }
 
     }

@@ -33,4 +33,8 @@ public class Niveaux {
         currentLevel++;
     }
 
+    public void previousLevel() {
+        currentLevel--;
+    }
+
 }

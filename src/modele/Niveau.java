@@ -100,12 +100,16 @@ public class Niveau {
     }
 
     public void setBestScore() {
-        if (currentScore < bestScore && bestScore == 0) {
+        if (currentScore < bestScore || bestScore == 0) {
             bestScore = currentScore;
         }
     }
 
     public void incrementCurrentScore() {
         currentScore++;
+    }
+
+    public void decrementCurrentScore() {
+        currentScore--;
     }
 }
