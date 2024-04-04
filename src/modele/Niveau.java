@@ -33,7 +33,6 @@ public class Niveau {
     public Niveau(String filename){
         int[][] tab = fileToTab(filename);
         InitWithTab(tab);
-
     }
 
 
@@ -47,16 +46,16 @@ public class Niveau {
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
                 if (tab[i][j] == 1) {
-                    herosPosition = new Point(i, j);
+                    herosPosition = new Point(j, i);
                 }
                 if (tab[i][j] == 2) {
-                    blocsPosition.add(new Point(i, j));
+                    blocsPosition.add(new Point(j, i));
                 }
                 if (tab[i][j] == 3) {
-                    goalPosition.add(new Point(i, j));
+                    goalPosition.add(new Point(j, i));
                 }
                 if (tab[i][j] == 4) {
-                    wallsPosition.add(new Point(i, j));
+                    wallsPosition.add(new Point(j, i));
                 }
             }
         }
@@ -101,7 +100,7 @@ public class Niveau {
     }
 
     public void setBestScore() {
-        if (currentScore < bestScore && bestScore != 0) {
+        if (currentScore < bestScore && bestScore == 0) {
             bestScore = currentScore;
         }
     }

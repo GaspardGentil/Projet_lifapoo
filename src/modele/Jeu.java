@@ -111,7 +111,10 @@ public class Jeu extends Observable {
                 }
             }
         }
+        System.out.println("Partie terminée !");
+        System.out.println("Score actuel : " + n.getCurrentScore());
         n.setBestScore();
+        System.out.println("Meilleur score : " + n.getBestScore());
         return true;
         //heros = new Heros(this, grilleEntites[1][1]);
     }

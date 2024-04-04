@@ -14,6 +14,10 @@ public class Niveaux {
         //Niveau 1
         Niveau n = new Niveau("Levels/level1.txt");
         addNiveau(n);
+        Niveau n2 = new Niveau("Levels/level2.txt");
+        addNiveau(n2);
+        Niveau n3 = new Niveau("Levels/level3.txt");
+        addNiveau(n3);
         currentLevel = 0;
     }
 
