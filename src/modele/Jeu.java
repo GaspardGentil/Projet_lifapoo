@@ -153,7 +153,7 @@ public class Jeu extends Observable {
                         e.getCase().quitterLaCase(); //quitte la case actuelle
                         caseALaPosition(pCible).entrerSurLaCase(e);
                     } else if (e instanceof Heros) {
-                        // Ne rien faire si l'entité est un héros
+                        System.out.println("Déplacement");
                     } else {
                         System.out.println("L'entité n'est pas un Bloc !");
                     }
