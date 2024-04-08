@@ -128,9 +128,9 @@ public class Jeu extends Observable {
      */
     public boolean deplacerEntite(Entite e, Direction d) {
         boolean retour = true;
-        
+
         Point pCourant = map.get(e.getCase());
-        
+
         Point pCible = calculerPointCible(pCourant, d);
 
         if (contenuDansGrille(pCible)) {
@@ -150,25 +150,18 @@ public class Jeu extends Observable {
                     if (e instanceof Bloc) {
                         System.out.println("Un Bloc a atteint Goal !");
                         ((Bloc) e).setSurGoal(true);
-                        // Incrémente compteur Goal
                         e.getCase().quitterLaCase(); //quitte la case actuelle
                         caseALaPosition(pCible).entrerSurLaCase(e);
+                    } else if (e instanceof Heros) {
+                        System.out.println("Déplacement");
                     } else {
-                        System.out.println("Bloc n'est plus sur Goal !");
-                        //Bloc b = (Bloc) e;
-                        //System.out.println("Bloc n'est plus sur Goal !");
-
-                        //((Bloc) e).setSurGoal(false);
-                        // Décrémente compteur Goal
+                        System.out.println("L'entité n'est pas un Bloc !");
                     }
-                    e.getCase().quitterLaCase();
-                    caseALaPosition(pCible).entrerSurLaCase(e);
-                    // Bloc arrive sur le goal : Appel d'une méthode pour clear la grille
-                    //removeCase(new Goal(this), pCible.x, pCible.y);
-                    System.out.println("Goal atteint !");
-                    finPartie();
-                    //e.setCase(grilleEntites[1][1]);
+                } else if (e instanceof Bloc) {
+                    System.out.println("Un Bloc n'est plus sur Goal !");
+                    ((Bloc) e).setSurGoal(false);
                 }
+
 
                 e.getCase().quitterLaCase();
                 caseALaPosition(pCible).entrerSurLaCase(e);
@@ -183,8 +176,8 @@ public class Jeu extends Observable {
 
         return retour;
     }
-    
-    
+
+
     private Point calculerPointCible(Point pCourant, Direction d) {
         Point pCible = null;
         

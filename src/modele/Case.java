@@ -40,7 +40,14 @@ public abstract class Case extends Obj {
     public void setEntite(Entite _e) {
 
         e = _e;
-        e.setCase(this);}
+        e.setCase(this);
+    }
+
+    // Dans la classe Case
+    public boolean contientBloc() {
+        return e instanceof Bloc;
+    }
 
 
-   }
+
+}
