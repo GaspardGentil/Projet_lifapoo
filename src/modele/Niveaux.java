@@ -1,5 +1,6 @@
 package modele;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Niveaux {
@@ -11,13 +12,13 @@ public class Niveaux {
     public Niveaux() {
         niveaux = new ArrayList<>();
 
-        //Niveau 1
-        Niveau n = new Niveau("Levels/level1.txt");
-        addNiveau(n);
-        Niveau n2 = new Niveau("Levels/level2.txt");
-        addNiveau(n2);
-        Niveau n3 = new Niveau("Levels/level3.txt");
-        addNiveau(n3);
+        File dir = new File("Levels");
+        File[] files = dir.listFiles();
+        for (File f : files) {
+            if (f.isFile()) {
+                addNiveau(new Niveau(f.getPath()));
+            }
+        }
         currentLevel = 0;
     }
 
