@@ -28,6 +28,21 @@ public class Tool {
         return tab;
     }
 
+    public static void tabToFile(int[][] tab, String filename){
+        try {
+            java.io.PrintWriter writer = new java.io.PrintWriter(filename);
+            for (int i = 0; i < tab.length; i++) {
+                for (int j = 0; j < tab[i].length; j++) {
+                    writer.print(convertToString(tab[i][j]) + " ");
+                }
+                writer.println();
+            }
+            writer.close();
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("Fichier non trouvé");
+        }
+    }
+
     private static int convertToInt(String str) {
         int result;
         switch (str) {
@@ -45,6 +60,28 @@ public class Tool {
                 break;
             default:
                 result = 0;
+                break;
+        }
+        return result;
+    }
+
+    private static String convertToString(int i) {
+        String result;
+        switch (i) {
+            case 1:
+                result = "h";
+                break;
+            case 2:
+                result = "b";
+                break;
+            case 3:
+                result = "g";
+                break;
+            case 4:
+                result = "w";
+                break;
+            default:
+                result = "o";
                 break;
         }
         return result;
