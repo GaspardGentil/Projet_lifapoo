@@ -43,7 +43,6 @@ public abstract class Case extends Obj {
         e.setCase(this);
     }
 
-    // Dans la classe Case
     public boolean contientBloc() {
         return e instanceof Bloc;
     }

@@ -91,17 +91,10 @@ public class Jeu extends Observable {
         map.put(e, new Point(x, y));
     }
 
-
-    private void removeCase(Case e, int x, int y) {
-        grilleEntites[x][y] = null;
-        map.remove(e, new Point(x, y));
-    }
-
     public boolean finPartie() {
 
         for (int x = 0; x < SIZE_X; x++) {
             for (int y = 0; y < SIZE_Y; y++) {
-                //addCase(new Vide(this), x, y);
                 Case c = grilleEntites[x][y];
                 // On vérifie si la case est un Goal
                 if (c instanceof Goal) {
@@ -135,25 +128,41 @@ public class Jeu extends Observable {
 
         if (contenuDansGrille(pCible)) {
             Entite eCible = caseALaPosition(pCible).getEntite();
-            if (eCible != null) {
+
+            if (eCible instanceof Bloc) {
+                // Si la cible est un Bloc :
+                Point pApresCible = calculerPointCible(pCible, d);
+
+                if (contenuDansGrille(pApresCible)) {
+                    Case caseApresCible = caseALaPosition(pApresCible);
+
+                    if (caseApresCible.contientBloc()) {
+                        System.out.println("Trop de Bloc à pousser !");
+                        retour = false;
+                    }
+                }
+            }
+            if (retour && eCible != null) {
                 eCible.pousser(d);
             }
+            if (retour && caseALaPosition(pCible).peutEtreParcouru()) {
 
-            // si la case est libérée
-            if (caseALaPosition(pCible).peutEtreParcouru()) {
-                if (caseALaPosition(pCible) instanceof Vide) {  // Si la case cible est Vide
-                    e.getCase().quitterLaCase(); // L'entité quitte la case actuelle
-                    caseALaPosition(pCible).entrerSurLaCase(e); // L'entité va sur la case suivante (Cible)
-                }
+                if (caseALaPosition(pCible) instanceof Vide) {
+                    e.getCase().quitterLaCase();
+                    caseALaPosition(pCible).entrerSurLaCase(e);
 
-                if (caseALaPosition(pCible) instanceof Goal) {  // Si la case cible est Goal
+                } else if (caseALaPosition(pCible) instanceof Goal) {
+
                     if (e instanceof Bloc) {
+
                         System.out.println("Un Bloc a atteint Goal !");
                         ((Bloc) e).setSurGoal(true);
-                        e.getCase().quitterLaCase(); //quitte la case actuelle
+                        e.getCase().quitterLaCase();
                         caseALaPosition(pCible).entrerSurLaCase(e);
+
                     } else if (e instanceof Heros) {
-                        System.out.println("Déplacement");
+                        System.out.println("Hero sur Goal");
+
                     } else {
                         System.out.println("L'entité n'est pas un Bloc !");
                     }
@@ -161,19 +170,14 @@ public class Jeu extends Observable {
                     System.out.println("Un Bloc n'est plus sur Goal !");
                     ((Bloc) e).setSurGoal(false);
                 }
-
-
                 e.getCase().quitterLaCase();
                 caseALaPosition(pCible).entrerSurLaCase(e);
-
             } else {
                 retour = false;
             }
-
         } else {
             retour = false;
         }
-
         return retour;
     }
 
