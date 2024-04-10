@@ -137,7 +137,7 @@ public class VueControleur extends JFrame implements Observer {
             }
         }
 
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(sizeX, sizeY)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
 
