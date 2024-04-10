@@ -24,6 +24,7 @@ import modele.*;
  */
 public class VueControleur extends JFrame implements Observer {
     private Jeu jeu; // référence sur une classe de modèle : permet d'accéder aux données du modèle pour le rafraichissement, permet de communiquer les actions clavier (ou souris)
+    //on ajoute une liste de niveaux a charger dans la vue
     private Niveaux niveaux = new Niveaux();
 
     private int sizeX; // taille de la grille affichée
@@ -70,6 +71,7 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT : jeu.deplacerHeros(Direction.droite); break;
                     case KeyEvent.VK_DOWN : jeu.deplacerHeros(Direction.bas); break;
                     case KeyEvent.VK_UP : jeu.deplacerHeros(Direction.haut); break;
+
                     case KeyEvent.VK_R : jeu.resetNiveau(); break;
                     case KeyEvent.VK_N : niveaux.nextLevel();
                                         jeu.n = niveaux.getNiveau();
@@ -197,6 +199,7 @@ public class VueControleur extends JFrame implements Observer {
         }
         //mise à jour du titre de la fenêtre et du score
         setTitle("Sokoban - " + jeu.n.getName() + " - Score : " + jeu.n.getCurrentScore() + " / " + jeu.n.getBestScore());
+        //si on fini le niveau courant, passe au suivant
         if(jeu.finPartie()){
             JOptionPane.showMessageDialog(this, "Niveau terminé !  score : " + jeu.n.getCurrentScore() + " / " + jeu.n.getBestScore());
             niveaux.nextLevel();

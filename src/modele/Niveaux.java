@@ -12,6 +12,7 @@ public class Niveaux {
     public Niveaux() {
         niveaux = new ArrayList<>();
 
+        // On récupère les fichiers de niveaux et on les ajoute à la liste (a relancer avec l'application)
         File dir = new File("Levels");
         File[] files = dir.listFiles();
         for (File f : files) {
@@ -50,6 +51,7 @@ public class Niveaux {
         }
     }
 
+    //methode utilisée pour l'affichage des niveaux dans la vue
     public String[] getNiveauxNames() {
         String[] names = new String[niveaux.size()];
         for (int i = 0; i < niveaux.size(); i++) {

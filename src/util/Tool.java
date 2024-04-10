@@ -3,8 +3,11 @@ package util;
 
 import java.io.File;
 
+//cette classe contient des methodes statiques pour convertir des fichiers en tableau et vice versa
 public class Tool {
     //methods
+
+    //convertit un fichier en tableau d'entiers (methode "aller")
     public static int[][] fileToTab(String filename){
         File file = new File(filename);
         int[][] tab = new int[0][0];
@@ -28,6 +31,7 @@ public class Tool {
         return tab;
     }
 
+    //convertit un tableau d'entiers en fichier (methode "retour")
     public static void tabToFile(int[][] tab, String filename){
         try {
             java.io.PrintWriter writer = new java.io.PrintWriter(filename);
@@ -43,6 +47,7 @@ public class Tool {
         }
     }
 
+    //convertit un string en entier (utile pour la conversion de fichier en tableau)
     private static int convertToInt(String str) {
         int result;
         switch (str) {
@@ -65,6 +70,7 @@ public class Tool {
         return result;
     }
 
+    //convertit un entier en string (utile pour la conversion de tableau en fichier)
     private static String convertToString(int i) {
         String result;
         switch (i) {

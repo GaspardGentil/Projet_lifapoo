@@ -9,6 +9,7 @@ public class Niveau {
     //attributes
     private String name;
 
+    //dimensions et caractéristiques du niveau
     private int SIZE_X;
     private int SIZE_Y;
     private Point herosPosition;
@@ -16,10 +17,13 @@ public class Niveau {
     private ArrayList<Point> goalPosition;
     private ArrayList<Point> wallsPosition;
 
+    //scores et meilleur score
     private int bestScore;
     private int currentScore;
 
     //methods
+
+    //constructeur par defaut, il est en theorique inutile
     public Niveau(int _SIZE_X, int _SIZE_Y, Point _herosPosition, ArrayList<Point> _blocsPosition, ArrayList<Point> _goalPosition, ArrayList<Point> _wallsPosition) {
         name = "Niveau";
         SIZE_X = _SIZE_X;
@@ -32,13 +36,14 @@ public class Niveau {
         currentScore = 0;
     }
 
+    //constructeur par fichier, c'est celui qui est utilisé
     public Niveau(String filename){
         int[][] tab = fileToTab(filename);
         name = filename;
         InitWithTab(tab);
     }
 
-
+    //initialisation du niveau avec un tableau, utilisé par le constructeur par fichier
     public void InitWithTab(int[][] tab){
         SIZE_X = tab.length;
         SIZE_Y = tab[0].length;
@@ -66,6 +71,7 @@ public class Niveau {
         currentScore = 0;
     }
 
+    //accesseurs et mutateurs
     public String getName() {
         return name;
     }
@@ -116,6 +122,7 @@ public class Niveau {
         }
     }
 
+    //traitements sur les scores
     public void incrementCurrentScore() {
         currentScore++;
     }
