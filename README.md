@@ -42,3 +42,7 @@ Implementation de la classe tool qui lit un fichier pur generer un tableau
   - Ecran de selection de niveau (avec nommage des niveaux)
   - Gestion des scores avec affichage dynamique
   - Gestion des fichiers de niveaux chargés par l'application (classe Tool)
+
+- Christophe :
+  - Mise à jour de l'affichage de Bloc sur Goal avec une fonction "finPartie()" (utilisé dans Jeu et VueControleur)
+  - Gestion du déplacement de Bloc (classe Jeu : deplacerEntite(...)): Hero ne peut pas pousser plusieurs Bloc dans la même direction 

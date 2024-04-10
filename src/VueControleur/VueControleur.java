@@ -174,8 +174,10 @@ public class VueControleur extends JFrame implements Observer {
                             // On vérifie si la case contient un Bloc ou BlocGoal
                             Bloc b = (Bloc) e;
                             if (jeu.finPartie()) {
+                                // Si tous les Bloc sont arrivés aux Goal
                                 tabJLabel[x][y].setIcon(icoBlocGoal);
                             } else if (b.estSurGoal()) {
+                                // Si un Bloc est arrivé sur Goal
                                 tabJLabel[x][y].setIcon(icoBlocGoal);
                             } else {
                                 tabJLabel[x][y].setIcon(icoBloc);

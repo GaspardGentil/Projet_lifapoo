@@ -129,13 +129,14 @@ public class Jeu extends Observable {
         if (contenuDansGrille(pCible)) {
             Entite eCible = caseALaPosition(pCible).getEntite();
 
+            // Vérification si plusieurs Bloc sont collés => Ne peut être poussé
             if (eCible instanceof Bloc) {
                 // Si la cible est un Bloc :
                 Point pApresCible = calculerPointCible(pCible, d);
 
                 if (contenuDansGrille(pApresCible)) {
                     Case caseApresCible = caseALaPosition(pApresCible);
-
+                    // Si la cible après pCible est un Bloc (donc + de 1 Bloc) alors retour = false et le Hero ne pourra pas pousser
                     if (caseApresCible.contientBloc()) {
                         System.out.println("Trop de Bloc à pousser !");
                         retour = false;
