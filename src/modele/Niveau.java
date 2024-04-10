@@ -7,6 +7,7 @@ import static util.Tool.fileToTab;
 
 public class Niveau {
     //attributes
+    private String name;
 
     private int SIZE_X;
     private int SIZE_Y;
@@ -20,6 +21,7 @@ public class Niveau {
 
     //methods
     public Niveau(int _SIZE_X, int _SIZE_Y, Point _herosPosition, ArrayList<Point> _blocsPosition, ArrayList<Point> _goalPosition, ArrayList<Point> _wallsPosition) {
+        name = "Niveau";
         SIZE_X = _SIZE_X;
         SIZE_Y = _SIZE_Y;
         herosPosition = _herosPosition;
@@ -32,6 +34,7 @@ public class Niveau {
 
     public Niveau(String filename){
         int[][] tab = fileToTab(filename);
+        name = filename;
         InitWithTab(tab);
     }
 
@@ -61,6 +64,14 @@ public class Niveau {
         }
         bestScore = 0;
         currentScore = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSIZE_X() {

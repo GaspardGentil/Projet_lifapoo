@@ -1,6 +1,6 @@
 package VueControleur;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -71,7 +71,6 @@ public class VueControleur extends JFrame implements Observer {
                     case KeyEvent.VK_DOWN : jeu.deplacerHeros(Direction.bas); break;
                     case KeyEvent.VK_UP : jeu.deplacerHeros(Direction.haut); break;
                     case KeyEvent.VK_R : jeu.resetNiveau(); break;
-                    case KeyEvent.VK_U : /*jeu.undoMove()*/; break;
                     case KeyEvent.VK_N : niveaux.nextLevel();
                                         jeu.n = niveaux.getNiveau();
                                         jeu.resetNiveau();
@@ -124,6 +123,18 @@ public class VueControleur extends JFrame implements Observer {
         setSize(350, 370);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
+        //ajout d'un ecran de selection de niveau
+        String[] niveauxNames = niveaux.getNiveauxNames();
+        String niveauChoisi = (String) JOptionPane.showInputDialog(this, "Choisissez un niveau", "Niveau",
+                                        JOptionPane.QUESTION_MESSAGE, null, niveauxNames, niveauxNames[0]);
+        for (int i = 0; i < niveauxNames.length; i++) {
+            if (niveauxNames[i].equals(niveauChoisi)) {
+                niveaux.setCurrentLevel(i);
+                jeu.n = niveaux.getNiveau();
+                jeu.resetNiveau();
+            }
+        }
+
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
@@ -143,7 +154,6 @@ public class VueControleur extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
-
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
@@ -185,6 +195,8 @@ public class VueControleur extends JFrame implements Observer {
 
             }
         }
+        //mise à jour du titre de la fenêtre et du score
+        setTitle("Sokoban - " + jeu.n.getName() + " - Score : " + jeu.n.getCurrentScore() + " / " + jeu.n.getBestScore());
         if(jeu.finPartie()){
             JOptionPane.showMessageDialog(this, "Niveau terminé !  score : " + jeu.n.getCurrentScore() + " / " + jeu.n.getBestScore());
             niveaux.nextLevel();

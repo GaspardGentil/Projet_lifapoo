@@ -16,7 +16,9 @@ public class Niveaux {
         File[] files = dir.listFiles();
         for (File f : files) {
             if (f.isFile()) {
-                addNiveau(new Niveau(f.getPath()));
+                Niveau n = new Niveau(f.getPath());
+                n.setName(f.getName());
+                addNiveau(n);
             }
         }
         currentLevel = 0;
@@ -31,11 +33,31 @@ public class Niveaux {
     }
 
     public void nextLevel() {
-        currentLevel++;
+        if (currentLevel < niveaux.size() - 1) {
+            currentLevel++;
+        }
     }
 
     public void previousLevel() {
-        currentLevel--;
+        if (currentLevel > 0) {
+            currentLevel--;
+        }
     }
+
+    public void setCurrentLevel(int i) {
+        if (i >= 0 && i < niveaux.size()) {
+            currentLevel = i;
+        }
+    }
+
+    public String[] getNiveauxNames() {
+        String[] names = new String[niveaux.size()];
+        for (int i = 0; i < niveaux.size(); i++) {
+            names[i] = niveaux.get(i).getName();
+        }
+        return names;
+    }
+
+
 
 }
